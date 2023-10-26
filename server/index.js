@@ -4,7 +4,7 @@ const Soundcloud = require("soundcloud.ts").default;
 const NodeID3 = require('node-id3');
 const axios = require('axios');
 const fs = require('fs');
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
 const app = express();
 const soundcloud = new Soundcloud({
@@ -12,12 +12,11 @@ const soundcloud = new Soundcloud({
     oauthToken: '2-293847-1068764815-lEWnQ9Wlbu4Mn',
 })
 
-app.use(express.json());
-// app.use(bodyParser.json()); //utilizes the body-parser package
-// app.use(bodyParser.urlencoded({extended: true}));
-app.get("/download", async (req, res) => {
-    console.log(req.body);
-    let track = await soundcloud.tracks.getV2("rojasonthebeat/look-at-me-ft-xxxtentacion");
+// app.use(express.json());
+app.use(bodyParser.json()); //utilizes the body-parser package
+app.use(bodyParser.urlencoded({extended: true}));
+app.get("/download/:track", async (req, res) => {
+    let track = await soundcloud.tracks.getV2(req.query?.track);
     await soundcloud.util.downloadTrack(track, "./tracks/randomHash") // todo: random hash
     const file = fs.readdirSync("./tracks/randomHash")[0];
     const coverAsBuffer = async () => {
@@ -36,9 +35,9 @@ app.get("/download", async (req, res) => {
     }
     const filePath = './tracks/randomHash/' + file;
     const success = NodeID3.update(tags, filePath);
-    console.log(filePath);
     res.download(filePath);
-    // res.json('test')
+
+    //TODO: delete file
     // fs.unlinkSync(filePath);
 });
   
