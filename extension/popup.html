@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Extension</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        width: 300px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Extension</h1>
+    <p>This is my first Chrome extension.</p>
+    <form action="http://localhost:8080/">
+      <input type="hidden" name="track" value="rojasonthebeat/look-at-me-ft-xxxtentacion">
+      <button type="submit" id="btnAction">Click me!</button>
+    </form>
+
+    <script src="popup.js"></script>
+
+    <div id="response"></div>
+  </body>
+</html>
