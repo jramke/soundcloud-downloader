@@ -15,7 +15,7 @@ const soundcloud = new Soundcloud({
 app.use(express.json());
 // app.use(bodyParser.json()); //utilizes the body-parser package
 // app.use(bodyParser.urlencoded({extended: true}));
-app.get("/", async (req, res) => {
+app.get("/download", async (req, res) => {
     console.log(req.body);
     let track = await soundcloud.tracks.getV2("rojasonthebeat/look-at-me-ft-xxxtentacion");
     await soundcloud.util.downloadTrack(track, "./tracks/randomHash") // todo: random hash
@@ -38,6 +38,7 @@ app.get("/", async (req, res) => {
     const success = NodeID3.update(tags, filePath);
     console.log(filePath);
     res.download(filePath);
+    // res.json('test')
     // fs.unlinkSync(filePath);
 });
   

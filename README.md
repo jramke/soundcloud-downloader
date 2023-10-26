@@ -5,3 +5,4 @@ https://github.com/Tenpi/soundcloud.ts
 https://github.com/webdevcody/gpt-chrome-extension/blob/main/server/index.js
 
 
+https://stackoverflow.com/questions/59421482/res-download-download-window-not-showing-up
