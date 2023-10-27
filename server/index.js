@@ -15,13 +15,13 @@ const soundcloud = new Soundcloud({
 // app.use(express.json());
 app.use(bodyParser.json()); //utilizes the body-parser package
 app.use(bodyParser.urlencoded({extended: true}));
-app.get("/download/:track", async (req, res) => {
+app.get("/download", async (req, res) => {
     let track = await soundcloud.tracks.getV2(req.query?.track);
     await soundcloud.util.downloadTrack(track, "./tracks/randomHash") // todo: random hash
     const file = fs.readdirSync("./tracks/randomHash")[0];
     const coverAsBuffer = async () => {
-        // todo: remove "large" at end from string and replace with "t500x500" for better resolution
-        const response = await fetch(track?.artwork_url);
+        let url = track?.artwork_url.replace('-large', '-t500x500');
+        const response = await fetch(url);
         const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
         return buffer
