@@ -9,7 +9,7 @@ TODO:
 
 - styling, ux
 
-- random hash
+- delete download
 
 - code cleanup
 
