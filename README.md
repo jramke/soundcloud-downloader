@@ -11,8 +11,6 @@ TODO:
 
 - random hash
 
-- delete download
-
 - code cleanup
 
 - automatically add downloaded song to given playlist

@@ -17,8 +17,10 @@ app.use(bodyParser.json()); //utilizes the body-parser package
 app.use(bodyParser.urlencoded({extended: true}));
 app.get("/download", async (req, res) => {
     let track = await soundcloud.tracks.getV2(req.query?.track);
-    await soundcloud.util.downloadTrack(track, "./tracks/randomHash") // todo: random hash
-    const file = fs.readdirSync("./tracks/randomHash")[0];
+    const generateRandomString = () => Math.floor(Math.random() * Date.now()).toString(36);
+    const hash = generateRandomString();
+    await soundcloud.util.downloadTrack(track, "./tracks/"+hash) // todo: random hash
+    const file = fs.readdirSync("./tracks/"+hash)[0];
     const coverAsBuffer = async () => {
         let url = track?.artwork_url.replace('-large', '-t500x500');
         const response = await fetch(url);
@@ -33,12 +35,13 @@ app.get("/download", async (req, res) => {
         APIC: await coverAsBuffer(),
 
     }
-    const filePath = './tracks/randomHash/' + file;
+    const filePath = `./tracks/${hash}/${file}`;
     const success = NodeID3.update(tags, filePath);
-    res.download(filePath);
+    res.download(filePath, file, () => {
+        fs.unlinkSync(filePath);
+        // fs.rmSync(`./tracks/${hash}`, { recursive: true, force: true }); // dont works
+    });
 
-    //TODO: delete file
-    // fs.unlinkSync(filePath);
 });
   
 app.listen(8080);
