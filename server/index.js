@@ -7,19 +7,27 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 
 const app = express();
-const soundcloud = new Soundcloud()
+// const soundcloud = new Soundcloud()
+const soundcloud = new Soundcloud({
+    clientId: 'odn1E9M0osmPI1UsMDnFDuKcK5WSjS7s',
+    oauthToken: '2-293847-1068764815-lEWnQ9Wlbu4Mn',
+})
 
 // app.use(express.json());
 app.use(bodyParser.json()); //utilizes the body-parser package
 app.use(bodyParser.urlencoded({extended: true}));
 app.get("/download", async (req, res) => {
     let track = await soundcloud.tracks.getV2(req.query?.track);
+    if (!track) {
+        console.log('Track not aviable')
+        return
+    }
     const generateRandomString = () => Math.floor(Math.random() * Date.now()).toString(36);
     const hash = generateRandomString();
     await soundcloud.util.downloadTrack(track, "./tracks/"+hash)
     const file = fs.readdirSync("./tracks/"+hash)[0];
-    const coverAsBuffer = async () => {
-        let url = track?.artwork_url.replace('-large', '-t500x500');
+    const coverAsBuffer = async (artworkUrl) => {
+        let url = artworkUrl.replace('-large', '-t500x500');
         const response = await fetch(url);
         const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
@@ -29,7 +37,7 @@ app.get("/download", async (req, res) => {
     const tags = {
         title: track?.title,
         artist: track?.user?.username,
-        APIC: await coverAsBuffer(),
+        APIC: track.artwork_url ? await coverAsBuffer(track.artwork_url) : '',
 
     }
     const filePath = `./tracks/${hash}/${file}`;
