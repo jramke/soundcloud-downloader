@@ -7,11 +7,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 
 const app = express();
-// const soundcloud = new Soundcloud()
-const soundcloud = new Soundcloud({
-    clientId: 'odn1E9M0osmPI1UsMDnFDuKcK5WSjS7s',
-    oauthToken: '2-293847-1068764815-lEWnQ9Wlbu4Mn',
-})
+const soundcloud = new Soundcloud()
 const pathToTracks = '/tmp/tracks/'
 
 // app.use(express.json());
