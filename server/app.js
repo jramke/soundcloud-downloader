@@ -52,3 +52,5 @@ app.get("/download", async (req, res) => {
 });
   
 app.listen(8080);
+
+exports.default = app;
