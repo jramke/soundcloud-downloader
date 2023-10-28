@@ -12,7 +12,7 @@ const soundcloud = new Soundcloud({
     clientId: 'odn1E9M0osmPI1UsMDnFDuKcK5WSjS7s',
     oauthToken: '2-293847-1068764815-lEWnQ9Wlbu4Mn',
 })
-const pathToTracks = './public/tracks/'
+const pathToTracks = '/public/tracks/'
 
 // app.use(express.json());
 app.use(bodyParser.json()); //utilizes the body-parser package
