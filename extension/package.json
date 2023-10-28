@@ -1,15 +1,14 @@
 {
-  "name": "extension-vite",
-  "version": "0.0.0",
+  "name": "soundcloud-downloader",
+  "version": "1.0.0",
   "author": "**",
-  "description": "",
+  "description": "Download Soundcloud tracks with cover and artist info",
   "type": "module",
   "license": "MIT",
   "keywords": [
-    "chrome-extension",
-    "vanilla",
-    "vite",
-    "create-chrome-ext"
+    "soundcloud",
+    "soundcloud-downloader",
+    "downloader"
   ],
   "engines": {
     "node": ">=14.18.0"
@@ -17,13 +16,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "fmt": "prettier --write '**/*.{js,json,css,scss,md}'"
+    "preview": "vite preview"
   },
-  "dependencies": {},
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.19",
-    "prettier": "^3.0.3",
     "vite": "^4.4.11"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
   }
 }

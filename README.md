@@ -1,16 +1,28 @@
-https://www.youtube.com/watch?v=B-T69_VP2Ls&ab_channel=CodingGarden
+# Soundcloud Downloader Chrome Extension
 
-https://github.com/Tenpi/soundcloud.ts
+Download soundcloud songs with cover and artist information.
 
-https://github.com/webdevcody/gpt-chrome-extension/blob/main/server/index.js
+## Gettings started
 
+First clone this repo
 
-TODO:
+### Server
+```
+cd server
+npm i
+npm run dev
+```
 
-- styling, ux
+### Extension
+```
+cd extension
+npm i
+npm run build
+```
+Then add the build folder on `chrome://extensions/`.
 
-- delete download
+## TODO:
 
-- code cleanup
+- ux downloading state
 
 - automatically add downloaded song to given playlist
