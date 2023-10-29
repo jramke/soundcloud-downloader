@@ -1,11 +1,10 @@
-
-const express = require("express");
+import express from "express";
 // const Soundcloud = require("../soundcloud.ts").default;
-const Soundcloud = require("soundcloud.ts").default;
-const NodeID3 = require('node-id3');
-const axios = require('axios');
-const fs = require('fs');
-const bodyParser = require('body-parser');
+import Soundcloud from "soundcloud.ts";
+import NodeID3 from "node-id3";
+import fs from "fs";
+import bodyParser from "body-parser";
+import fetch from "node-fetch";
 
 const app = express();
 const soundcloud = new Soundcloud()
