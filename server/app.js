@@ -1,7 +1,7 @@
 
 const express = require("express");
-const Soundcloud = require("../soundcloud.ts").default;
-// const Soundcloud = require("soundcloud.ts").default;
+// const Soundcloud = require("../soundcloud.ts").default;
+const Soundcloud = require("soundcloud.ts").default;
 const NodeID3 = require('node-id3');
 const axios = require('axios');
 const fs = require('fs');
