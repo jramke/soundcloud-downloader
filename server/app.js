@@ -5,11 +5,11 @@ import NodeID3 from "node-id3";
 import fs from "fs";
 import bodyParser from "body-parser";
 import fetch from "node-fetch";
+import 'dotenv/config'
 
 const app = express();
 const soundcloud = new Soundcloud()
-const pathToTracks = '/tmp/tracks/' // stores locally in c: disk
-
+const pathToTracks = process.env.NODE_ENV === 'Development' ? './tracks/' : '/tmp/tracks/';
 // app.use(express.json());
 app.use(bodyParser.json()); //utilizes the body-parser package
 app.use(bodyParser.urlencoded({extended: true}));
