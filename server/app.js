@@ -41,7 +41,7 @@ app.get("/download", async (req, res) => {
         const tags = {
             title: track?.title,
             artist: track?.user?.username,
-            // APIC: track.artwork_url ? await coverAsBuffer(track.artwork_url) : '',
+            APIC: track.artwork_url ? await coverAsBuffer(track.artwork_url) : '',
     
         }
         const filePath = pathToTracks + `${hash}/${file}`;
