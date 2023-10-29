@@ -6,7 +6,7 @@ const NodeID3 = require('node-id3');
 const axios = require('axios');
 const fs = require('fs');
 const bodyParser = require('body-parser');
-const fetch = require("node-fetch");
+const fetch = require("node-fetch").default;
 
 const app = express();
 const soundcloud = new Soundcloud()
