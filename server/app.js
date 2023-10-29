@@ -1,6 +1,6 @@
 import express from "express";
 // const Soundcloud = require("../soundcloud.ts").default;
-import Soundcloud from "soundcloud.ts"
+import { Soundcloud } from "soundcloud.ts"
 import NodeID3 from "node-id3";
 import fs from "fs";
 import bodyParser from "body-parser";
