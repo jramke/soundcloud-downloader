@@ -6,6 +6,7 @@ const NodeID3 = require('node-id3');
 const axios = require('axios');
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const fetch = require("node-fetch");
 
 const app = express();
 const soundcloud = new Soundcloud()
@@ -32,7 +33,7 @@ app.get("/download", async (req, res) => {
         await soundcloud.util.downloadTrack(track, pathToTracks+hash)
         const file = fs.readdirSync(pathToTracks+hash)[0];
         const coverAsBuffer = async (artworkUrl) => {
-            let url = artworkUrl.replace('-large', '-t50x50');
+            let url = artworkUrl.replace('-large', '-t500x500');
             const response = await fetch(url);
             const arrayBuffer = await response.arrayBuffer();
             const buffer = Buffer.from(arrayBuffer);
