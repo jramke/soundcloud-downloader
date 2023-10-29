@@ -32,7 +32,7 @@ app.get("/download", async (req, res) => {
         await soundcloud.util.downloadTrack(track, pathToTracks+hash)
         const file = fs.readdirSync(pathToTracks+hash)[0];
         const coverAsBuffer = async (artworkUrl) => {
-            let url = artworkUrl.replace('-large', '-t500x500');
+            let url = artworkUrl.replace('-large', '-t50x50');
             const response = await fetch(url);
             const arrayBuffer = await response.arrayBuffer();
             const buffer = Buffer.from(arrayBuffer);
