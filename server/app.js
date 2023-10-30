@@ -30,7 +30,8 @@ app.get("/download", async (req, res) => {
         const generateRandomString = () => Math.floor(Math.random() * Date.now()).toString(36);
         const hash = generateRandomString();
         console.log('start download');
-        const file = await soundcloud.util.downloadTrack(track, pathToTracks+hash)
+        const filePath = await soundcloud.util.downloadTrack(track, pathToTracks+hash);
+        console.log(filePath);
         console.log('end download');
         // const file = fs.readdirSync(pathToTracks+hash)[0];
         // const coverAsBuffer = async (artworkUrl) => {
@@ -47,10 +48,10 @@ app.get("/download", async (req, res) => {
         //     APIC: track.artwork_url ? await coverAsBuffer(track.artwork_url) : '',
     
         // }
-        const filePath = pathToTracks + `${hash}/${file}`;
+        // const filePath = pathToTracks + `${hash}/${file}`;
         // const success = NodeID3.update(tags, filePath);
         console.log('response with download');
-        res.download(filePath, file, () => {
+        res.download(filePath, () => {
             fs.unlink(filePath, () => {
                 fs.rmdirSync(pathToTracks + hash);
             });
