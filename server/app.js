@@ -33,23 +33,20 @@ app.get("/download", async (req, res) => {
         const filePath = await soundcloud.util.downloadTrack(track, pathToTracks+hash);
         console.log(filePath);
         console.log('end download');
-        // const file = fs.readdirSync(pathToTracks+hash)[0];
-        // const coverAsBuffer = async (artworkUrl) => {
-        //     let url = artworkUrl.replace('-large', '-t500x500');
-        //     const response = await fetch(url);
-        //     const arrayBuffer = await response.arrayBuffer();
-        //     const buffer = Buffer.from(arrayBuffer);
-        //     return buffer
-        // }
+        const coverAsBuffer = async (artworkUrl) => {
+            let url = artworkUrl.replace('-large', '-t500x500');
+            const response = await fetch(url);
+            const arrayBuffer = await response.arrayBuffer();
+            const buffer = Buffer.from(arrayBuffer);
+            return buffer
+        }
+        const tags = {
+            title: track?.title,
+            artist: track?.user?.username,
+            APIC: track.artwork_url ? await coverAsBuffer(track.artwork_url) : '',
     
-        // const tags = {
-        //     title: track?.title,
-        //     artist: track?.user?.username,
-        //     APIC: track.artwork_url ? await coverAsBuffer(track.artwork_url) : '',
-    
-        // }
-        // const filePath = pathToTracks + `${hash}/${file}`;
-        // const success = NodeID3.update(tags, filePath);
+        }
+        const success = NodeID3.update(tags, filePath);
         console.log('response with download');
         res.download(filePath, async () => {
             console.log('delete file');

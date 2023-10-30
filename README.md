@@ -26,5 +26,3 @@ Then add the build folder on `chrome://extensions/`.
 - Vercel serverless function max 5mb, so if song is bigger error is thrown
 
 - ux downloading state
-
-- automatically add downloaded song to given playlist
