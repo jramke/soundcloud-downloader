@@ -1,6 +1,6 @@
 [functions]
   external_node_modules = ["express"]
-  node_bundler = ""
+  node_bundler = "echo Building Functions"
 [[redirects]]
   force = true
   from = "/api/*"
