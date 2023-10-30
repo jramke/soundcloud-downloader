@@ -30,23 +30,22 @@ app.get("/download", async (req, res) => {
         const hash = generateRandomString();
         await soundcloud.util.downloadTrack(track, pathToTracks+hash)
         const file = fs.readdirSync(pathToTracks+hash)[0];
-        const coverAsBuffer = async (artworkUrl) => {
-            let url = artworkUrl.replace('-large', '-t500x500');
-            const response = await fetch(url);
-            const arrayBuffer = await response.arrayBuffer();
-            const buffer = Buffer.from(arrayBuffer);
-            return buffer
-        }
+        // const coverAsBuffer = async (artworkUrl) => {
+        //     let url = artworkUrl.replace('-large', '-t500x500');
+        //     const response = await fetch(url);
+        //     const arrayBuffer = await response.arrayBuffer();
+        //     const buffer = Buffer.from(arrayBuffer);
+        //     return buffer
+        // }
     
-        const tags = {
-            title: track?.title,
-            artist: track?.user?.username,
-            APIC: track.artwork_url ? await coverAsBuffer(track.artwork_url) : '',
+        // const tags = {
+        //     title: track?.title,
+        //     artist: track?.user?.username,
+        //     APIC: track.artwork_url ? await coverAsBuffer(track.artwork_url) : '',
     
-        }
-        const filePath = pathToTracks + `${hash}/${file}`;
-        const success = NodeID3.update(tags, filePath);
-        // res.cookie('track', req.query?.track, { maxAge: 900000 })
+        // }
+        // const filePath = pathToTracks + `${hash}/${file}`;
+        // const success = NodeID3.update(tags, filePath);
         res.download(filePath, file, () => {
             fs.unlink(filePath, () => {
                 fs.rmdirSync(pathToTracks + hash);
