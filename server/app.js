@@ -44,7 +44,7 @@ app.get("/download", async (req, res) => {
         //     APIC: track.artwork_url ? await coverAsBuffer(track.artwork_url) : '',
     
         // }
-        // const filePath = pathToTracks + `${hash}/${file}`;
+        const filePath = pathToTracks + `${hash}/${file}`;
         // const success = NodeID3.update(tags, filePath);
         res.download(filePath, file, () => {
             fs.unlink(filePath, () => {
