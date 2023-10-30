@@ -52,7 +52,9 @@ app.get("/download", async (req, res) => {
         // const success = NodeID3.update(tags, filePath);
         console.log('response with download');
         res.download(filePath, () => {
+            console.log('delete file');
             fs.unlink(filePath, () => {
+                console.log('delete folder');
                 fs.rmdirSync(pathToTracks + hash);
             });
         });
