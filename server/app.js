@@ -14,6 +14,7 @@ const pathToTracks = process.env.NODE_ENV === 'Development' ? './tracks/' : '/tm
 app.use(bodyParser.json()); //utilizes the body-parser package
 app.use(bodyParser.urlencoded({extended: true}));
 app.get("/download", async (req, res) => {
+    console.log('REQUEST IN');
     try {
         if (!req.query?.track) {
             res.json({ error: 'No track given' })
@@ -28,8 +29,10 @@ app.get("/download", async (req, res) => {
         }
         const generateRandomString = () => Math.floor(Math.random() * Date.now()).toString(36);
         const hash = generateRandomString();
-        await soundcloud.util.downloadTrack(track, pathToTracks+hash)
-        const file = fs.readdirSync(pathToTracks+hash)[0];
+        console.log('start download');
+        const file = await soundcloud.util.downloadTrack(track, pathToTracks+hash)
+        console.log('end download');
+        // const file = fs.readdirSync(pathToTracks+hash)[0];
         // const coverAsBuffer = async (artworkUrl) => {
         //     let url = artworkUrl.replace('-large', '-t500x500');
         //     const response = await fetch(url);
@@ -46,6 +49,7 @@ app.get("/download", async (req, res) => {
         // }
         const filePath = pathToTracks + `${hash}/${file}`;
         // const success = NodeID3.update(tags, filePath);
+        console.log('response with download');
         res.download(filePath, file, () => {
             fs.unlink(filePath, () => {
                 fs.rmdirSync(pathToTracks + hash);
