@@ -51,13 +51,14 @@ app.get("/download", async (req, res) => {
         // const filePath = pathToTracks + `${hash}/${file}`;
         // const success = NodeID3.update(tags, filePath);
         console.log('response with download');
-        res.download(filePath, () => {
+        res.download(filePath, async () => {
             console.log('delete file');
-            fs.unlink(filePath, () => {
-                console.log('delete folder');
-                fs.rmdirSync(pathToTracks + hash);
-            });
+            await fs.promises.unlink(filePath);
+            console.log('delete folder');
+            await fs.promises.rmdir(pathToTracks + hash);
         });
+        console.log('response with status 200');
+        res.status(200);
     } catch (error) {
         console.error('catched error ', error);
 		res.status(500).send(error);
